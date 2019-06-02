@@ -5,7 +5,10 @@ module.exports = linecounter;
 
 function initialize(options) {
 	results = {
-		TOTAL: {lines: 0, files: []},
+		TOTAL: {
+			lines: 0,
+			files: []
+		},
 	};
 	operation = {
 		FILES: [],
@@ -30,8 +33,7 @@ function linecounter(cb, options) {
 			operation.resolve = resolve;
 			readFile(opts.file);
 		});
-	}
-	else {
+	} else {
 		// start from specified directory or from pwd
 		opts.directory = opts.directory ? opts.directory : ".";
 		var counting = new Promise((resolve, reject) => {
@@ -44,11 +46,11 @@ function linecounter(cb, options) {
 	});
 }
 
-function readDirectory (dir) {
+function readDirectory(dir) {
 	fs.readdir(dir, (err, files) => dealWithFiles(files, dir));
 }
 
-function dealWithFiles (files, dir) {
+function dealWithFiles(files, dir) {
 	files.forEach(fileName => {
 		let stats = fs.statSync(path.join(dir, fileName));
 		// .git, .DS_Store...
@@ -61,15 +63,13 @@ function dealWithFiles (files, dir) {
 				require("./lib/tooBig.js")(stats, dir, fileName);
 			}
 			return;
-		}
-		else if (ignore.fileNames.includes(fileName)) {
+		} else if (ignore.fileNames.includes(fileName)) {
 			return;
 		}
 		// the file must be ignored (by extension)
 		else if (ignore.extensions.includes(path.extname(fileName))) {
 			return;
-		}
-		else if (stats.isDirectory()) {
+		} else if (stats.isDirectory()) {
 			return readDirectory(path.join(dir, fileName));
 		}
 		// it is a simple file, just count it
@@ -79,7 +79,7 @@ function dealWithFiles (files, dir) {
 	});
 }
 
-function readFile (fileName) {
+function readFile(fileName) {
 	operation.FILES.push(fileName);
 	var extension = path.extname(fileName) ? path.extname(fileName) : "PLAIN";
 	fs.readFile(fileName, (err, file) => {
@@ -91,18 +91,17 @@ function readFile (fileName) {
 	});
 }
 
-function updateResults (metadata) {
+function updateResults(metadata) {
 	operation.COMPLETED_FILES.push(metadata.fileName);
 	results.TOTAL.lines += metadata.lines;
 
 	// if it is the first file with this extension, we initialize
-	if(!results[metadata.extension]) {
+	if (!results[metadata.extension]) {
 		results[metadata.extension] = {
 			files: 1,
 			lines: metadata.lines
 		};
-	}
-	else {
+	} else {
 		results[metadata.extension].files++;
 		results[metadata.extension].lines += metadata.lines;
 	}
@@ -113,11 +112,10 @@ function updateResults (metadata) {
 	}
 }
 
-function finish () {
+function finish() {
 	if (opts.list === true) {
 		return operation.FILES.join("\n");
-	}
-	else {
+	} else {
 		return JSON.stringify(results);
 	}
 }

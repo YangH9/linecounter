@@ -3,7 +3,9 @@ const program = require('commander');
 program
 	.version("3.3.1")
 	.option("-d, --directory <directory>", "specify directory")
-	.option("-i, --ignore <filename1, filename2... filenameN>", "ignore specific files", function list(val) {return val.split(',');})
+	.option("-i, --ignore <filename1, filename2... filenameN>", "ignore specific files", function list(val) {
+		return val.split(',');
+	})
 	.option("-f, --file <filename>", "count only one file")
 	.option("-l, --list", "list out not ignored (counting files)")
 	.option("-e, --errors", "list out errors to linecounter.error.log")
