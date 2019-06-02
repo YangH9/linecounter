@@ -1,0 +1,28 @@
+{
+  "name": "linecounter",
+  "version": "1.0.0",
+  "description": "linecounter",
+  "main": "index.js",
+  "scripts": {
+    "test": "linecounter",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanghan0218/linecounter.git"
+  },
+  "keywords": [
+    "linecounter"
+  ],
+  "author": "linecounter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yanghan0218/linecounter/issues"
+  },
+  "homepage": "https://github.com/yanghan0218/linecounter#readme",
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "commander": "^2.20.0",
+    "express": "^4.17.1"
+  }
+}

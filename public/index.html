@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>项目统计器</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+  <h3>项目统计器</h3>
+  <input id="dirName" class="form-control" type="text" placeholder="请输入您要计算代码行数的目录">
+  <button id="btStart" class="btn btn-success">开始计算</button>
+  <br><br>
+  <div id="result" class="alert alert-danger invisible">
+  </div>
+</div>
+<script src="js/jquery.js"></script>
+<script>
+  $('#btStart').click(function(){
+    var dirname = $('#dirName').val();
+    $.ajax({
+      url: 'count',
+      data: {dirname},
+      success: function(data){
+        $('#result').html(data).removeClass('invisible');
+      }
+    })
+  })
+</script>
+</body>
+</html>
