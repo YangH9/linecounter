@@ -1,12 +1,17 @@
 const express = require('express');
 const linecounter = require('./src/index');
 const program = require('commander');
+const child_process = require('child_process')
 
 var port = 8088;
 var app = express();
 
-app.listen(port, () => {
+app.listen(port, function () {
+	let port = this.address().port
+	let url = `http://127.0.0.1:${port}`
 	console.log('Server Listening on %d ...', port);
+	console.log(`Opening ${url}`);
+	child_process.exec(`start ${url}`);
 })
 
 app.use(express.static('./public'));
